@@ -1,16 +1,30 @@
-# React + Vite
+# Library Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A React library management app built with Vite. The app stores books, users,
+transactions, and the current login in the browser's local storage.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```sh
+npm install
+npm run dev
+```
 
-## React Compiler
+Use the first-time librarian account:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Name: `Admin`
+- Membership ID: `ADMIN01`
 
-## Expanding the Oxlint configuration
+## Deploy to GitHub Pages
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+The GitHub Actions workflow in `.github/workflows/deploy.yml` builds and deploys
+the app whenever changes are pushed to `main`. The workflow uses the repository's
+GitHub Pages deployment environment.
+
+After the first successful workflow run, the app is available at:
+
+https://leilani8-creater.github.io/Library-management-using-react/
+
+If GitHub Pages is not enabled automatically, open the repository's **Settings >
+Pages** and set **Build and deployment > Source** to **GitHub Actions**. Each
+visitor's data is saved only in that visitor's own browser.

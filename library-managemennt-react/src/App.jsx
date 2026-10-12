@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import useLocalStorage from './hooks/useLocalStorage'
 import { seedBooks, seedUsers } from './data/seedData'
 import Layout from './components/Layout'
@@ -22,7 +22,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         {/* Layout puts the sidebar around every page */}
         <Route element={<Layout currentUser={currentUser} onLogout={() => setCurrentUser(null)} />}>
@@ -59,7 +59,7 @@ function App() {
           />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
