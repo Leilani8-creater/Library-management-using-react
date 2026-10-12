@@ -171,6 +171,8 @@ select {
   border-radius: 8px;
   font-size: 14px;
   background: white;
+  color: #111827;
+  color-scheme: light;
 }
 
 input:focus,
