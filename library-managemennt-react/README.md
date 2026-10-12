@@ -17,9 +17,9 @@ Use the first-time librarian account:
 
 ## Deploy to GitHub Pages
 
-The GitHub Actions workflow in `.github/workflows/deploy.yml` builds and deploys
-the app whenever changes are pushed to `main`. The workflow uses the repository's
-GitHub Pages deployment environment.
+The GitHub Actions workflow at `../.github/workflows/static.yml` builds and
+deploys the app whenever changes are pushed to `main`. It publishes the built
+site using the repository's GitHub Pages deployment environment.
 
 After the first successful workflow run, the app is available at:
 
