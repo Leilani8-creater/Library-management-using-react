@@ -1,34 +1,63 @@
-import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import useLocalStorage from './hooks/useLocalStorage'
+import { seedBooks, seedUsers } from './data/seedData'
+import Layout from './components/Layout'
+import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Books from './pages/Books'
 import Transactions from './pages/Transactions'
-import User from './pages/User'
+import Users from './pages/Users'
 import './App.css'
 
 function App() {
-  const [books, setBooks] = useState(() => {
-    const saved = localStorage.getItem("books")
-    return saved ? JSON.parse(saved) : []
-  })
+  // all the data lives here and is saved to localStorage
+  const [books, setBooks] = useLocalStorage("libraryBooks", seedBooks)
+  const [users, setUsers] = useLocalStorage("libraryUsers", seedUsers)
+  const [transactions, setTransactions] = useLocalStorage("libraryTransactions", [])
+  const [currentUser, setCurrentUser] = useLocalStorage("libraryCurrentUser", null)
 
-  useEffect(() => {
-    localStorage.setItem("books", JSON.stringify(books))
-  }, [books])
+  // if no one logged in, show only the login page
+  if (currentUser === null) {
+    return <Login users={users} onLogin={setCurrentUser} />
+  }
 
   return (
     <BrowserRouter>
-      <nav>
-        <Link to="/">Dashboard</Link>{" "}
-        <Link to="/books">Books</Link>{" "}
-        <Link to="/transactions">Transactions</Link>{" "}
-        <Link to="/user">User</Link>
-      </nav>
       <Routes>
-        <Route path="/" element={<Dashboard books={books} />} />
-        <Route path="/books" element={<Books books={books} setBooks={setBooks} />} />
-        <Route path="/transactions" element={<Transactions books={books} setBooks={setBooks} />} />
-        <Route path="/user" element={<User />} />
+        {/* Layout puts the sidebar around every page */}
+        <Route element={<Layout currentUser={currentUser} onLogout={() => setCurrentUser(null)} />}>
+          <Route
+            path="/"
+            element={<Dashboard books={books} users={users} transactions={transactions} currentUser={currentUser} />}
+          />
+          <Route
+            path="/books"
+            element={<Books books={books} setBooks={setBooks} />}
+          />
+          <Route
+            path="/transactions"
+            element={
+              <Transactions
+                books={books}
+                setBooks={setBooks}
+                users={users}
+                transactions={transactions}
+                setTransactions={setTransactions}
+              />
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              <Users
+                users={users}
+                setUsers={setUsers}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
+            }
+          />
+        </Route>
       </Routes>
     </BrowserRouter>
   )
